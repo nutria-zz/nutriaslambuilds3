@@ -1,0 +1,8 @@
+PRGNAM="arora"
+VERSION="0.6"
+HOMEPAGE="http://code.google.com/p/arora/"
+DOWNLOAD="http://arora.googlecode.com/files/arora-0.6.tar.gz"
+MD5SUM="8af32512bbbea4a2f2514b30cbf3d50a"
+MAINTAINER="Andrew Brouwers"
+EMAIL="abrouwers@gmail.com"
+APPROVED="jkwood"

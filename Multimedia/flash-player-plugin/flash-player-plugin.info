@@ -1,0 +1,8 @@
+PRGNAM="flash-player-plugin"
+VERSION="10.0.22.87"
+HOMEPAGE="http://www.adobe.com/products/flashplayer"
+DOWNLOAD="http://download.macromedia.com/pub/labs/flashplayer10/libflashplayer-10.0.22.87.linux-x86_64.so.tar.gz"
+MD5SUM="492d98d25886afcaf18252334d4ac4e2"
+MAINTAINER="JK Wood"
+EMAIL="joshuakwood@gmail.com"
+APPROVED="jkwood"

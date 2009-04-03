@@ -1,0 +1,8 @@
+PRGNAM="bzr"
+VERSION="1.11"
+HOMEPAGE="http://bazaar-vcs.org/"
+DOWNLOAD="https://launchpad.net/bzr/1.11/1.11/+download/bzr-1.11.tar.gz"
+MD5SUM="08f8e60cfd7a60e8a2552dee0df9a7e8"
+MAINTAINER="JK Wood"
+EMAIL="joshuakwood@gmail.com"
+APPROVED="jkwood"

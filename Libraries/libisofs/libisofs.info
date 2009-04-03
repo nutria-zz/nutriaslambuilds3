@@ -1,0 +1,8 @@
+PRGNAM="libisofs"
+VERSION="0.6.16"
+HOMEPAGE="http://libburnia-project.org/wiki/Libisofs"
+DOWNLOAD="http://files.libburnia-project.org/releases/libisofs-0.6.16.tar.gz"
+MD5SUM="398d934b5ca0e2741a6aa3c28ecef5b1"
+MAINTAINER="Andrew Brouwers"
+EMAIL="abrouwers@gmail.com"
+APPROVED="abrouwers"

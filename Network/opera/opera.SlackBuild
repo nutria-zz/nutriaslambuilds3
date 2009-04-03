@@ -1,0 +1,114 @@
+#!/bin/sh
+
+# Slamd64 build script for opera
+
+# Copyright 2006  Martin Lefebvre <dadexter@gmail.com>
+# Copyright 2008,2009  Robby Workman, Northport, Alabama, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Modified for Slamd64 by JK Wood <joshuakwood@gmail.com
+
+PRGNAM=opera
+VERSION=9.64
+ARCH=x86_64	# Leave this alone 
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SB64}
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SB64}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+# If you want Chinese in Opera to not be fugly, set this to "YES",
+# otherwise leave it be.
+# This can be specified on the command line when calling the build script:
+#   CHINESE_FIX=YES ./opera.SlackBuild
+# Note that this makes Opera use wqy-zenhei as the default font
+# for Chinese AND Japanese
+CHINESE_FIX=${CHINESE_FIX:-NO}
+
+# Don't bother this - it's for easier manipulation and sed'ing later
+TOPDIR=$(tar tf $CWD/$PRGNAM-${VERSION}.gcc4-shared-qt3.${ARCH}.tar.bz2 |head -1)
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP 
+rm -rf $TOPDIR
+tar xvf $CWD/$PRGNAM-${VERSION}.gcc4-shared-qt3.${ARCH}.tar.bz2
+cd $TOPDIR
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
+
+# No, the --DESTDIR isn't documented.  In fact, the presence of OPERADESTDIR
+# at the top of install.sh is damn misleading.  I shouldn't have to actually
+# read the install script to figure out DESTDIR - the --help should show it.
+# --rworkman
+./install.sh \
+  --prefix=/usr \
+  --exec_prefix=/usr/lib64/opera-$VERSION \
+  --sharedir=/usr/share/opera \
+  --wrapperdir=/usr/bin \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/opera-$VERSION \
+  --plugindir=/usr/lib64/mozilla/plugins \
+  --DESTDIR=$PKG
+
+# Fix a potential security issue (minor, but still) with a hardcoded path to
+# the build directory lingering in /usr/bin/opera
+# Theoretically, a malicious user looks at that in /usr/bin/opera and later
+# recreates the directory and does some unknown havoc.  It may very well be
+# completely safe and unexploitable and I'm just being Chicken Little here,
+# but it's easy enough to fix and I'd rather be safe than sorry.  --rworkman
+sed -i "s|$TMP/$TOPDIR|/usr/bin/|g" $PKG/usr/bin/opera
+
+# Include config files
+mv etc $PKG
+mv $PKG/etc/opera6rc $PKG/etc/opera6rc.new
+mv $PKG/etc/opera6rc.fixed $PKG/etc/opera6rc.fixed.new
+
+# Add an opera.desktop file and link the icon to /usr/share/pixmaps
+mv usr/share/icons usr/share/pixmaps $PKG/usr/share
+mkdir -p $PKG/usr/share/applications
+install -m 0644 $CWD/opera.desktop $PKG/usr/share/applications
+
+# Add a copy of the build script to the docs
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+# Compress the man page
+gzip -9 $PKG/usr/man/man?/*.?
+
+# Strip symbols we don't need
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+
+# Patch for Chinese font handling
+if [ "$CHINESE_FIX" = "YES" ]; then
+  patch -p0 < $CWD/opera_chinese_font_fix.diff
+fi
+
+/sbin/makepkg -p -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.tgz

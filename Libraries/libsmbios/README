@@ -1,0 +1,8 @@
+The libsmbios project aims towards providing access to as much BIOS
+information as possible. It does this by providing a library of
+functions that can be used as well as sample binaries.
+
+Please note that documentation is especially sparse in this package.
+There are no man pages, and many of the binaries included here are
+untested and perhaps dangerous to use on non-supported hardware.
+Known supported hardware consists of most Dell computers.

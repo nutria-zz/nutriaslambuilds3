@@ -1,0 +1,17 @@
+Openbox is a standards compliant, fast, light-weight, extensible
+window manager.  Openbox was written first to comply with standards
+and to work properly.  Openbox is fully functional as a stand-alone
+working environment, or can be used as a drop-in replacement for
+the default window manager in the GNOME or KDE desktop environments.
+
+NOTE: This SlackBuild nows has xinit scripts for openbox and 
+openbox-session.  You *must* select "openbox-session" in order to 
+use your autostart file.  It is recommended that you run xwmconfig 
+to correct this if you have used previous versions of this 
+SlackBuild.  Similarly, select "Openbox-Session" instead of 
+"Openbox" in KDM/XDM if you want session management and your 
+autostart file to be used.
+
+If you do not plan on using a session manager with Openbox you can 
+build a smaller binary by disabling session management support.  To 
+do this simply configure with '--disable-session-management'.

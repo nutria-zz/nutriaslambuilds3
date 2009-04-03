@@ -1,0 +1,8 @@
+PRGNAM="Songbird"
+VERSION="1.1.1"
+HOMEPAGE="http://www.songbirdnest.com"
+DOWNLOAD="http://download.songbirdnest.com/installer/linux/x86_64/Songbird_1.1.1-1018_linux-x86_64.tar.gz"
+MD5SUM="c1b48b37c207d136b93193dc302b92a1" 
+MAINTAINER="JK Wood"
+EMAIL="joshuakwood@gmail.com"
+APPROVED="jkwood"

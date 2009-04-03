@@ -1,0 +1,8 @@
+PRGNAM="opera"
+VERSION="9.64"
+HOMEPAGE="http://www.opera.com"
+DOWNLOAD="ftp://ftp.opera.com/pub/opera/linux/964/final/en/x86_64/opera-9.64.gcc4-shared-qt3.x86_64.tar.bz2"
+MD5SUM="b4ca665855639a72fc0c3ae47b751fae"
+MAINTAINER="JK Wood"
+EMAIL="joshuakwood@gmail.com"
+APPROVED="jkwood"

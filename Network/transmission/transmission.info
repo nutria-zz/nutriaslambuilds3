@@ -1,0 +1,8 @@
+PRGNAM="transmission"
+VERSION="1.51"
+HOMEPAGE="http://www.transmissionbt.com/"
+DOWNLOAD="http://download.m0k.org/transmission/files/transmission-1.51.tar.bz2"
+MD5SUM="b93439fbd0040ad6eb448f70a48355f5"
+MAINTAINER="Andrew Brouwers"
+EMAIL="abrouwers@gmail.com"
+APPROVED="abrouwers"

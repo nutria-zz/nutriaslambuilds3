@@ -1,0 +1,8 @@
+PRGNAM="powertop"
+VERSION="1.11"
+HOMEPAGE="http://www.lesswatts.org/projects/powertop/"
+DOWNLOAD="http://www.lesswatts.org/projects/powertop/download/powertop-1.11.tar.gz"
+MD5SUM="3498f5983c683c3a57dce7379a722082"
+MAINTAINER="JK Wood"
+EMAIL="joshuakwood@gmail.com"
+APPROVED="abrouwers"
